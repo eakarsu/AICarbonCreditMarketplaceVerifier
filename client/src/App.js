@@ -3,11 +3,15 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import CrudPage from './pages/CrudPage';
 import AIHub from './pages/AIHub';
+import AIStudio from './pages/AIStudio';
+import Webhooks from './pages/Webhooks';
 import api from './services/api';
 
 const FEATURES = [
   { key: 'dashboard', label: 'Dashboard', icon: '📊', resource: null, section: 'Overview' },
   { key: 'ai-hub', label: 'AI Command Center', icon: '🧠', resource: null, section: 'Overview' },
+  { key: 'ai-studio', label: 'AI Studio (8 New)', icon: '🧪', resource: null, section: 'Overview' },
+  { key: 'webhooks', label: 'Webhooks', icon: '🔔', resource: null, section: 'Overview' },
   { key: 'credits', label: 'Carbon Credits', icon: '🌿', resource: 'credits', section: 'Marketplace',
     description: 'Browse, list, and trade verified carbon credits',
     fields: [
@@ -267,6 +271,10 @@ function App() {
           <Dashboard features={FEATURES} onNavigate={setCurrentPage} showToast={showToast} />
         ) : currentPage === 'ai-hub' ? (
           <AIHub aiFeatures={AI_FEATURES} onNavigate={setCurrentPage} showToast={showToast} />
+        ) : currentPage === 'ai-studio' ? (
+          <AIStudio showToast={showToast} />
+        ) : currentPage === 'webhooks' ? (
+          <Webhooks showToast={showToast} />
         ) : feature ? (
           <CrudPage feature={feature} showToast={showToast} />
         ) : null}

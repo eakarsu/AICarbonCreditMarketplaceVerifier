@@ -1,4 +1,5 @@
 const express = require('express');
+const fetch = require('node-fetch');
 const { Retirement, CarbonCredit, User } = require('../models');
 const auth = require('../middleware/auth');
 const { callOpenRouter } = require('../services/openrouter');
@@ -111,6 +112,81 @@ router.post('/ai-certificate-summary', auth, async (req, res) => {
     const analysis = await callOpenRouter(prompt);
     res.json({ totalRetired, retirementCount: retirements.length, aiCertificate: analysis });
   } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// POST /api/retirements/:id/notify-webhook — send retirement notification to configured webhook URL
+router.post('/:id/notify-webhook', auth, async (req, res) => {
+  try {
+    const { webhook_url } = req.body;
+    if (!webhook_url) {
+      return res.status(400).json({ error: 'webhook_url is required.' });
+    }
+
+    let url;
+    try {
+      url = new URL(webhook_url);
+      if (!['http:', 'https:'].includes(url.protocol)) {
+        return res.status(400).json({ error: 'webhook_url must use http or https.' });
+      }
+    } catch {
+      return res.status(400).json({ error: 'webhook_url is not a valid URL.' });
+    }
+
+    const item = await Retirement.findByPk(req.params.id, {
+      include: [
+        { model: CarbonCredit, attributes: ['name', 'projectType', 'registry', 'country', 'methodology'] },
+        { model: User, attributes: ['name', 'company'] }
+      ]
+    });
+    if (!item) return res.status(404).json({ error: 'Retirement not found' });
+
+    const payload = {
+      event: 'carbon_credit_retired',
+      timestamp: new Date().toISOString(),
+      retirement: {
+        id: item.id,
+        quantity_tco2e: item.quantity,
+        reason: item.reason,
+        beneficiary: item.beneficiary,
+        retirement_date: item.retirementDate,
+        status: item.status,
+        certificate_url: item.certificateUrl,
+      },
+      credit: item.CarbonCredit ? {
+        name: item.CarbonCredit.name,
+        project_type: item.CarbonCredit.projectType,
+        registry: item.CarbonCredit.registry,
+        country: item.CarbonCredit.country,
+        methodology: item.CarbonCredit.methodology,
+      } : null,
+      retired_by: item.User ? { name: item.User.name, company: item.User.company } : null,
+    };
+
+    const webhookResponse = await fetch(webhook_url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Event-Type': 'carbon_credit_retired' },
+      body: JSON.stringify(payload),
+      timeout: 10000,
+    });
+
+    if (!webhookResponse.ok) {
+      return res.status(502).json({
+        error: 'Webhook delivery failed.',
+        webhook_status: webhookResponse.status,
+        webhook_status_text: webhookResponse.statusText,
+      });
+    }
+
+    res.json({
+      message: 'Webhook notification sent successfully.',
+      webhook_url,
+      webhook_status: webhookResponse.status,
+      payload_sent: payload,
+    });
+  } catch (err) {
+    console.error('Error sending webhook notification:', err);
+    res.status(500).json({ error: 'Failed to send webhook notification.' });
+  }
 });
 
 module.exports = router;

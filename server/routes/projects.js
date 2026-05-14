@@ -6,8 +6,17 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
-    const projects = await Project.findAll({ include: [{ model: User, as: 'owner', attributes: ['name', 'company'] }], order: [['createdAt', 'DESC']] });
-    res.json(projects);
+    const page = Math.max(1, parseInt(req.query.page) || 1);
+    const limit = Math.min(100, Math.max(1, parseInt(req.query.limit) || 20));
+    const offset = (page - 1) * limit;
+
+    const { count, rows } = await Project.findAndCountAll({
+      include: [{ model: User, as: 'owner', attributes: ['name', 'company'] }],
+      order: [['createdAt', 'DESC']],
+      limit,
+      offset,
+    });
+    res.json({ data: rows, pagination: { page, limit, total: count, totalPages: Math.ceil(count / limit) } });
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 

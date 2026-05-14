@@ -1,0 +1,97 @@
+{
+  "project": "AICarbonCreditMarketplaceVerifier",
+  "marker": "// === Batch 01 Gaps & Frontend Mounts ===",
+  "features": [
+    {
+      "slug": "agentic-verifier-reviewing-project-documents-and-f",
+      "component": "AgenticVerifierReviewingProjectDocumentsAndFPage",
+      "label": "Agentic verifier reviewing project documents and flagging additionality risks",
+      "endpoint": "/api/cf-agentic-verifier-reviewing-project-documents-and-f",
+      "kind": "cfs"
+    },
+    {
+      "slug": "rag-over-methodology-pdfs-verra-vm0007-etc-for-ins",
+      "component": "RagOverMethodologyPdfsVerraVm0007EtcForInsPage",
+      "label": "RAG over methodology PDFs (Verra VM0007, etc.) for instant protocol Q&A",
+      "endpoint": "/api/cf-rag-over-methodology-pdfs-verra-vm0007-etc-for-ins",
+      "kind": "cfs"
+    },
+    {
+      "slug": "real-time-market-anomaly-detection-on-listings-and",
+      "component": "RealTimeMarketAnomalyDetectionOnListingsAndPage",
+      "label": "Real-time market-anomaly detection on listings and trades",
+      "endpoint": "/api/cf-real-time-market-anomaly-detection-on-listings-and",
+      "kind": "cfs"
+    },
+    {
+      "slug": "white-label-marketplace-deployment-for-industry-co",
+      "component": "WhiteLabelMarketplaceDeploymentForIndustryCoPage",
+      "label": "White-label marketplace deployment for industry consortia",
+      "endpoint": "/api/cf-white-label-marketplace-deployment-for-industry-co",
+      "kind": "cfs"
+    },
+    {
+      "slug": "ainew-js-scaffold-but-0-mounted-chat-style-ai-endp",
+      "component": "AinewJsScaffoldBut0MountedChatStyleAiEndpPage",
+      "label": "aiNew.js scaffold but 0 mounted /chat-style AI endpoints",
+      "endpoint": "/api/gap-ainew-js-scaffold-but-0-mounted-chat-style-ai-endp",
+      "kind": "gap"
+    },
+    {
+      "slug": "no-ai-verification-of-project-additionality-perman",
+      "component": "NoAiVerificationOfProjectAdditionalityPermanPage",
+      "label": "No AI verification of project additionality/permanence",
+      "endpoint": "/api/gap-no-ai-verification-of-project-additionality-perman",
+      "kind": "gap"
+    },
+    {
+      "slug": "no-satellite-imagery-validation-of-land-based-cred",
+      "component": "NoSatelliteImageryValidationOfLandBasedCredPage",
+      "label": "No satellite-imagery validation of land-based credits",
+      "endpoint": "/api/gap-no-satellite-imagery-validation-of-land-based-cred",
+      "kind": "gap"
+    },
+    {
+      "slug": "no-ai-price-prediction-for-credit-classes",
+      "component": "NoAiPricePredictionForCreditClassesPage",
+      "label": "No AI price-prediction for credit classes",
+      "endpoint": "/api/gap-no-ai-price-prediction-for-credit-classes",
+      "kind": "gap"
+    },
+    {
+      "slug": "no-notification-system-delivery-channel",
+      "component": "NoNotificationSystemDeliveryChannelPage",
+      "label": "No notification system / delivery channel",
+      "endpoint": "/api/gap-no-notification-system-delivery-channel",
+      "kind": "gap"
+    },
+    {
+      "slug": "no-direct-verra-gold-standard-acr-api-clients-only",
+      "component": "NoDirectVerraGoldStandardAcrApiClientsOnlyPage",
+      "label": "No direct Verra/Gold Standard/ACR API clients (only generic integrations scaffold)",
+      "endpoint": "/api/gap-no-direct-verra-gold-standard-acr-api-clients-only",
+      "kind": "gap"
+    },
+    {
+      "slug": "no-on-chain-credit-tokenization-layer",
+      "component": "NoOnChainCreditTokenizationLayerPage",
+      "label": "No on-chain credit tokenization layer",
+      "endpoint": "/api/gap-no-on-chain-credit-tokenization-layer",
+      "kind": "gap"
+    },
+    {
+      "slug": "no-kyc-aml-buyer-onboarding-flow",
+      "component": "NoKycAmlBuyerOnboardingFlowPage",
+      "label": "No KYC/AML buyer onboarding flow",
+      "endpoint": "/api/gap-no-kyc-aml-buyer-onboarding-flow",
+      "kind": "gap"
+    },
+    {
+      "slug": "only-6-frontend-pages-vs-18-backend-routes-ui-gap",
+      "component": "Only6FrontendPagesVs18BackendRoutesUiGapPage",
+      "label": "Only 6 frontend pages vs. 18 backend routes \u2014 UI gap",
+      "endpoint": "/api/gap-only-6-frontend-pages-vs-18-backend-routes-ui-gap",
+      "kind": "gap"
+    }
+  ]
+}

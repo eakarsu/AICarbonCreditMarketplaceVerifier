@@ -169,6 +169,22 @@ const SustainabilityReport = sequelize.define('SustainabilityReport', {
   frameworks: { type: DataTypes.STRING }
 });
 
+// AI Result Model — JSONB persistence for all AI analyses
+const AIResult = sequelize.define('AIResult', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  userId: { type: DataTypes.INTEGER },
+  feature: { type: DataTypes.STRING, allowNull: false },
+  input: { type: DataTypes.JSONB },
+  output: { type: DataTypes.JSONB },
+  model: { type: DataTypes.STRING }
+}, {
+  indexes: [
+    { fields: ['feature'] },
+    { fields: ['userId'] },
+    { fields: ['createdAt'] }
+  ]
+});
+
 // Associations
 CarbonCredit.belongsTo(User, { as: 'seller', foreignKey: 'sellerId' });
 Transaction.belongsTo(CarbonCredit, { foreignKey: 'creditId' });
@@ -194,5 +210,6 @@ module.exports = {
   ComplianceReport,
   AuditLog,
   OffsetRecommendation,
-  SustainabilityReport
+  SustainabilityReport,
+  AIResult
 };

@@ -49,8 +49,32 @@ const api = {
   aiAuditPatterns: () => request('/audit/ai-analyze-patterns', { method: 'POST' }),
   aiAuditAnalyze: (id) => request(`/audit/${id}/ai-analyze`, { method: 'POST' }),
 
+  // AI Hub New Features
+  aiAdditionalityValidator: (body) => request('/ai/additionality-validator', { method: 'POST', body: JSON.stringify(body) }),
+  aiVintageAnalyzer: (body) => request('/ai/vintage-analyzer', { method: 'POST', body: JSON.stringify(body) }),
+  aiMarketPredictor: (body) => request('/ai/market-predictor', { method: 'POST', body: JSON.stringify(body) }),
+  aiComplianceReporter: (body) => request('/ai/compliance-reporter', { method: 'POST', body: JSON.stringify(body) }),
+  aiCertificationTracker: (body) => request('/ai/certification-tracker', { method: 'POST', body: JSON.stringify(body) }),
+  aiImpactVerifier: (body) => request('/ai/impact-verifier', { method: 'POST', body: JSON.stringify(body) }),
+  aiSupplyChainTracer: (body) => request('/ai/supply-chain-tracer', { method: 'POST', body: JSON.stringify(body) }),
+  aiBuyerBrowse: (params = {}) => {
+    const qs = new URLSearchParams(params).toString();
+    return request(`/buyer/browse${qs ? `?${qs}` : ''}`);
+  },
+  aiBuyerRecommend: (body) => request('/buyer/recommend', { method: 'POST', body: JSON.stringify(body) }),
+  aiResultsList: (params = {}) => {
+    const qs = new URLSearchParams(params).toString();
+    return request(`/ai/results${qs ? `?${qs}` : ''}`);
+  },
+
   // Dashboard
   getDashboardStats: () => request('/dashboard/stats'),
+
+  // Webhooks
+  webhooksList: () => request('/webhooks'),
+  webhookCreate: (body) => request('/webhooks', { method: 'POST', body: JSON.stringify(body) }),
+  webhookDelete: (id) => request(`/webhooks/${id}`, { method: 'DELETE' }),
+  webhookTest: (id) => request(`/webhooks/${id}/test`, { method: 'POST' }),
 };
 
 export default api;
