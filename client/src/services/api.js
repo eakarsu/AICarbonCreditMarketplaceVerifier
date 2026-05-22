@@ -48,6 +48,7 @@ const api = {
   aiCertificateSummary: () => request('/retirements/ai-certificate-summary', { method: 'POST' }),
   aiAuditPatterns: () => request('/audit/ai-analyze-patterns', { method: 'POST' }),
   aiAuditAnalyze: (id) => request(`/audit/${id}/ai-analyze`, { method: 'POST' }),
+  portfolioIntegrityScore: (body) => request('/portfolio-integrity/score', { method: 'POST', body: JSON.stringify(body) }),
 
   // AI Hub New Features
   aiAdditionalityValidator: (body) => request('/ai/additionality-validator', { method: 'POST', body: JSON.stringify(body) }),

@@ -5,6 +5,7 @@ import CrudPage from './pages/CrudPage';
 import AIHub from './pages/AIHub';
 import AIStudio from './pages/AIStudio';
 import Webhooks from './pages/Webhooks';
+import PortfolioIntegrityPage from './pages/PortfolioIntegrityPage';
 import api from './services/api';
 
 const FEATURES = [
@@ -12,6 +13,7 @@ const FEATURES = [
   { key: 'ai-hub', label: 'AI Command Center', icon: '🧠', resource: null, section: 'Overview' },
   { key: 'ai-studio', label: 'AI Studio (8 New)', icon: '🧪', resource: null, section: 'Overview' },
   { key: 'webhooks', label: 'Webhooks', icon: '🔔', resource: null, section: 'Overview' },
+  { key: 'portfolio-integrity', label: 'Portfolio Integrity', icon: '🛡️', resource: null, section: 'Overview' },
   { key: 'credits', label: 'Carbon Credits', icon: '🌿', resource: 'credits', section: 'Marketplace',
     description: 'Browse, list, and trade verified carbon credits',
     fields: [
@@ -275,6 +277,8 @@ function App() {
           <AIStudio showToast={showToast} />
         ) : currentPage === 'webhooks' ? (
           <Webhooks showToast={showToast} />
+        ) : currentPage === 'portfolio-integrity' ? (
+          <PortfolioIntegrityPage showToast={showToast} />
         ) : feature ? (
           <CrudPage feature={feature} showToast={showToast} />
         ) : null}

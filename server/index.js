@@ -43,6 +43,7 @@ app.use('/api/webhooks', require('./routes/webhooks'));
 // Apply pass 5 — backlog (notifications, registry, reporting)
 app.use('/api/integrations', require('./routes/integrations'));
 app.use('/api/reports', require('./routes/reports'));
+app.use('/api/portfolio-integrity', require('./routes/portfolioIntegrity'));
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'ok', timestamp: new Date() }));
