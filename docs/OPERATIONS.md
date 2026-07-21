@@ -1,0 +1,5 @@
+# Carbon-credit lifecycle controls
+
+`/api/credit-lifecycle` locks project/methodology identity and version, records MRV/baseline/calculation digests, computes conservative tCO2e quantities with explicit leakage/uncertainty/permanence deductions, enforces verifier-organization independence and conflict checks, and requires registry evidence for issuance and retirement. Unique registry issuance IDs, serial ranges, and retirement receipts provide database-level anti-double-counting controls. Every state change has immutable evidence digest and idempotency.
+
+MRV sensors/labs, GIS/remote sensing, registries, ledgers, marketplaces, and KYC remain queued integrations until credentialed workers succeed. Approved methodologies, accredited independent verification, calibrated data, legal title, registry acceptance, KYC/AML determination, jurisdictional eligibility, and permanence monitoring remain external validation gates. Startup is non-destructive; dependencies, migrations, and guarded demo data are separate.

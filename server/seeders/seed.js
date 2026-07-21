@@ -3,6 +3,8 @@ require('dotenv').config();
 const { sequelize, User, CarbonCredit, Transaction, Project, Verification, Emission, MarketData, Retirement, ComplianceReport, AuditLog, OffsetRecommendation, SustainabilityReport } = require('../models');
 
 async function seed() {
+  if (process.env.CONFIRM_DEMO_SEED !== 'yes' || process.env.NODE_ENV === 'production') throw new Error('Demo seed requires CONFIRM_DEMO_SEED=yes outside production');
+  if (!process.env.DEMO_PASSWORD || process.env.DEMO_PASSWORD.length < 12) throw new Error('DEMO_PASSWORD must contain at least 12 characters');
   try {
     await sequelize.authenticate();
     console.log('Connected to database');
@@ -10,7 +12,7 @@ async function seed() {
     console.log('Tables created');
 
     // Users
-    const password = await bcrypt.hash('password123', 10);
+    const password = await bcrypt.hash(process.env.DEMO_PASSWORD, 10);
     const users = await User.bulkCreate([
       { name: 'Admin User', email: 'admin@carbonmarket.com', password, role: 'admin', company: 'CarbonMarket Inc.' },
       { name: 'Jane Smith', email: 'jane@greentech.com', password, role: 'trader', company: 'GreenTech Solutions' },
@@ -249,7 +251,7 @@ async function seed() {
     console.log('Sustainability Reports seeded');
 
     console.log('\n✅ All data seeded successfully!');
-    console.log('📧 Demo login: admin@carbonmarket.com / password123');
+    console.log('Demo users created with the configured DEMO_PASSWORD.');
     process.exit(0);
   } catch (err) {
     console.error('Seeding error:', err);

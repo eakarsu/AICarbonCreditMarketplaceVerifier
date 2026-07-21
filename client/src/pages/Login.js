@@ -20,11 +20,6 @@ export default function Login({ onLogin }) {
     setLoading(false);
   };
 
-  const autoFill = () => {
-    setEmail('admin@carbonmarket.com');
-    setPassword('password123');
-  };
-
   return (
     <div className="login-page">
       <div className="login-container">
@@ -52,9 +47,6 @@ export default function Login({ onLogin }) {
           </button>
         </form>
 
-        <button className="auto-fill-btn" onClick={autoFill}>
-          🔑 Quick Login — Auto-fill Demo Credentials
-        </button>
       </div>
     </div>
   );

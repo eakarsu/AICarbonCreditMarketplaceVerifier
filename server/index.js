@@ -8,6 +8,8 @@ const { sequelize } = require('./models');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const auth = require('./middleware/auth');
+const { validateRuntime } = require('./config/runtime');
 
 // Middleware
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
@@ -44,6 +46,7 @@ app.use('/api/webhooks', require('./routes/webhooks'));
 app.use('/api/integrations', require('./routes/integrations'));
 app.use('/api/reports', require('./routes/reports'));
 app.use('/api/portfolio-integrity', require('./routes/portfolioIntegrity'));
+app.use('/api/credit-lifecycle', auth, require('./routes/creditLifecycle'));
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'ok', timestamp: new Date() }));
@@ -51,11 +54,10 @@ app.get('/api/health', (req, res) => res.json({ status: 'ok', timestamp: new Dat
 // Start server
 async function start() {
   try {
+    validateRuntime();
     await sequelize.authenticate();
     console.log('Database connected successfully');
-    // Use { alter: false } in production; run SQL migrations in /server/migrations/ instead
-    await sequelize.sync({ alter: process.env.NODE_ENV === 'development' });
-    console.log('Database synced');
+    console.log('Database schema must be applied with scripts/migrate.sh');
     
 app.use('/api/agentic-verifier', require('./routes/agenticVerifier')); // apply pass 6 — audit custom suggestion
 
@@ -73,14 +75,3 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 start();
 
-
-// === Batch 01 Gaps & Frontend Mounts ===
-app.use('/api/gap-ainew-js-scaffold-but-0-mounted-chat-style-ai-endp', require('./routes/gap_ainew_js_scaffold_but_0_mounted_chat_style_ai_endp'));
-app.use('/api/gap-no-ai-verification-of-project-additionality-perman', require('./routes/gap_no_ai_verification_of_project_additionality_perman'));
-app.use('/api/gap-no-satellite-imagery-validation-of-land-based-cred', require('./routes/gap_no_satellite_imagery_validation_of_land_based_cred'));
-app.use('/api/gap-no-ai-price-prediction-for-credit-classes', require('./routes/gap_no_ai_price_prediction_for_credit_classes'));
-app.use('/api/gap-no-notification-system-delivery-channel', require('./routes/gap_no_notification_system_delivery_channel'));
-app.use('/api/gap-no-direct-verra-gold-standard-acr-api-clients-only', require('./routes/gap_no_direct_verra_gold_standard_acr_api_clients_only'));
-app.use('/api/gap-no-on-chain-credit-tokenization-layer', require('./routes/gap_no_on_chain_credit_tokenization_layer'));
-app.use('/api/gap-no-kyc-aml-buyer-onboarding-flow', require('./routes/gap_no_kyc_aml_buyer_onboarding_flow'));
-app.use('/api/gap-only-6-frontend-pages-vs-18-backend-routes-ui-gap', require('./routes/gap_only_6_frontend_pages_vs_18_backend_routes_ui_gap'));

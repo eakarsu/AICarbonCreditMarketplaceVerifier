@@ -6,7 +6,8 @@
     "server": "nodemon server/index.js",
     "client": "cd client && react-scripts start",
     "seed": "node server/seeders/seed.js",
-    "start": "concurrently \"npm run server\" \"npm run client\""
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "node --test server/tests/*.test.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

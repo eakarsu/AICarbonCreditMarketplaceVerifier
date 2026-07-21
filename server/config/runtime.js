@@ -1,0 +1,1 @@
+function validateRuntime(env=process.env){if(!env.JWT_SECRET||env.JWT_SECRET.length<32)throw new Error('JWT_SECRET must be at least 32 characters');if(!env.DATABASE_URL)throw new Error('DATABASE_URL is required');return true;}module.exports={validateRuntime};
