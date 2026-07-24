@@ -4,7 +4,8 @@ require('dotenv').config();
 const DEFAULT_SYSTEM_PROMPT = 'You are an expert carbon credit analyst with deep knowledge of voluntary carbon markets, UNFCCC methodologies, Gold Standard, and VCS certification frameworks.';
 
 async function callOpenRouter(prompt, systemPrompt = DEFAULT_SYSTEM_PROMPT, maxTokens = 2000) {
-  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  const baseUrl = process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1';
+  const response = await fetch(`${baseUrl.replace(/\/$/, '')}/chat/completions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
