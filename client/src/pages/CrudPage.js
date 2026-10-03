@@ -17,7 +17,9 @@ export default function CrudPage({ feature, showToast }) {
     setLoading(true);
     try {
       const data = await api.getAll(feature.resource);
-      setItems(data);
+      const items = Array.isArray(data) ? data : data?.data;
+      if (!Array.isArray(items)) throw new Error('Invalid list response');
+      setItems(items);
     } catch (err) {
       showToast('Failed to load data: ' + err.message, 'error');
     }
